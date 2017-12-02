@@ -15,19 +15,19 @@ Vue.component( 'ubit-cotizador', {
             { tipo: 'Ya he trabajado con ustedes', value: 2, desc: 20 },
         ], tiposImpacto: [
             { tipo: 'nulo', value: 1 },
-            { tipo: 'discreto', value:  2 },
+            { tipo: 'discreto', value:  1.2 },
             { tipo: 'medio', value: 1.3 },
             { tipo: 'alto', value: 1.5 },
             { tipo: 'mucho', value: 2 },
         ], tiposCompetencia: [
             { tipo: 'nadie', value: 1 },
-            { tipo: 'no muchos', value: 1. },
-            { tipo: 'algunos', value: 1.5 },
+            { tipo: 'no muchos', value: 1.3 },
+            { tipo: 'algunos', value: 1.4 },
             { tipo: 'varios', value: 1.7 },
             { tipo: 'contactados', value: 2 },
         ],tiposUrgencia: [
             { tipo: 'nula', value: 1 },
-            { tipo: 'poca', value:  2 },
+            { tipo: 'poca', value:  1.2 },
             { tipo: 'medio', value: 1.3 },
             { tipo: 'alto', value: 1.5 },
             { tipo: 'mucho', value: 2 },
@@ -35,23 +35,19 @@ Vue.component( 'ubit-cotizador', {
         tipoCliente: 0,
         tipoCredibilidad: 1,
         tipoImpacto: 0,
-        competencia: 1,
         costoHora: 60,
-        dias: 0,
-        horasDia: 0,
-        precioHora: 0,
         cantidadDevs: 1,
         meses: 3,
         precioCalculado: 0
     }
     },
-    methods: {
+    computed: {
         precioPorHora: function () {
             var costo = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
             if ( !isNaN( costo ) ) {
-                this.precioCalculado = ( ( ( ( costo * 3 ) * 5 ) * 4 ) * this.cantidadDevs ) * this.meses;
+                return _.ceil( ( ( ( ( costo * 3 ) * 5 ) * 4 ) * this.cantidadDevs ) * this.meses );
             } else {
-                this.precioCalculado = 0;
+                return 0;
             }
         },
     },
@@ -66,8 +62,10 @@ Vue.component( 'ubit-cotizador', {
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <template v-for="tCliente in tiposCliente">
-                                    <input name="tipocliente" type="radio" v-model="tipoCliente" :id="'cliente_' + tCliente.value" :value="tCliente.value"></input>
-                                    <label :for="'cliente_' + tCliente.value">{{tCliente.tipo}}</label>
+                                    <div>
+                                        <input name="tipocliente" type="radio" v-model="tipoCliente" :id="'cliente_' + tCliente.value" :value="tCliente.value"></input>
+                                        <label :for="'cliente_' + tCliente.value">{{tCliente.tipo}}</label>
+                                    </div>
                                 </template>
                             </div>
                         </div><div class="clear"></div>
@@ -79,21 +77,13 @@ Vue.component( 'ubit-cotizador', {
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <template v-for="tImpacto in tiposImpacto">
-                                    <input name="tipoimpacto" type="radio" v-model="tipoImpacto" :id="'impacto_' + tImpacto.value" :value="tImpacto.value"></input>
-                                    <label :for="'impacto_' + tImpacto.value">{{tImpacto.tipo}}</label>
+                                    <div>
+                                        <input name="tipoimpacto" type="radio" v-model="tipoImpacto" :id="'impacto_' + tImpacto.value" :value="tImpacto.value"></input>
+                                        <label :for="'impacto_' + tImpacto.value">{{tImpacto.tipo}}</label>
+                                    </div>
                                 </template>
                             </div>
                         </div><div class="clear"></div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>Describre brevemente tu proyecto:</h2>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <textarea name="message" id="message" placeholder="..." rows="6"></textarea>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="row">
@@ -102,8 +92,10 @@ Vue.component( 'ubit-cotizador', {
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <template v-for="tCredibilidad in tiposCredibilidad">
-                                    <input name="tipocredibilidad" type="radio" v-model="tipoCredibilidad" :id="'credibilidad_' + tCredibilidad.value"></input>
-                                    <label :for="'credibilidad_' + tCredibilidad.value">{{tCredibilidad.tipo}}</label>
+                                    <div>
+                                        <input name="tipocredibilidad" type="radio" v-model="tipoCredibilidad" :id="'credibilidad_' + tCredibilidad.value"></input>
+                                        <label :for="'credibilidad_' + tCredibilidad.value">{{tCredibilidad.tipo}}</label>
+                                    </div>
                                 </template>
                             </div>
                         </div><div class="clear"></div>
@@ -137,7 +129,16 @@ Vue.component( 'ubit-cotizador', {
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <a role="button" class="button special block" @click="precioPorHora()">Calcular precio</a>
-                <h3>Costo aproximado: <br>$ {{precioCalculado}}</h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h2>Describre brevemente tu proyecto:</h2>
+                        <textarea name="message" id="message" placeholder="..." rows="6"></textarea>
+                    </div>
+                    <div class="col-xs-12">
+                    <div class="clear"></div>
+                        <h2>Costo aproximado: <br>$ {{precioPorHora}}</h2>
+                    </div>
+                </div>
+            </div>
         </section>`
 } );
