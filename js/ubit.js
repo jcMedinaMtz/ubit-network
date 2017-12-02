@@ -8,11 +8,11 @@ Vue.component( 'ubit-cotizador', {
             { tipo: 'corporativo', value: 1.5 },
             { tipo: 'macroempresa', value: 2 },
         ], tiposCredibilidad: [
-            { tipo: 'No los conocia', value: 1, desc: 5 },
-            { tipo: 'Redes Sociales', value: 1.3, desc: 10 },
-            { tipo: 'Reuniones de Networking', value: 1.5, desc: 15 },
+            { tipo: 'No los conocia', value: 1, desc: .5 },
+            { tipo: 'Redes Sociales', value: 1.3, desc: .10 },
+            { tipo: 'Reuniones de Networking', value: 1.5, desc: .15 },
             { tipo: 'Recomendación', value: 1.7, desc: 20 },
-            { tipo: 'Ya he trabajado con ustedes', value: 2, desc: 25 },
+            { tipo: 'Ya he trabajado con ustedes', value: 2, desc: .25 },
         ], tiposImpacto: [
             { tipo: 'nulo', value: 1 },
             { tipo: 'discreto', value:  1.2 },
@@ -38,14 +38,16 @@ Vue.component( 'ubit-cotizador', {
         costoHora: 60,
         cantidadDevs: 1,
         semanas: 12,
-        precioCalculado: 0
+        precioCalculado: 0,
+        descuento: 0
     }
     },
     computed: {
         precioPorHora: function () {
             var costo = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
             if ( !isNaN( costo ) ) {
-                return _.ceil( ( ( ( costo * 3 ) * 5 ) * this.cantidadDevs ) * this.semanas );
+                var precio = _.ceil( ( ( ( costo * 3 ) * 5 ) * this.cantidadDevs ) * this.semanas );
+                return precio -= ( precio * this descuento);
             } else {
                 return 0;
             }
@@ -93,7 +95,7 @@ Vue.component( 'ubit-cotizador', {
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <template v-for="tCredibilidad in tiposCredibilidad">
                                     <div>
-                                        <input name="tipocredibilidad" type="radio" v-model="tipoCredibilidad" :id="'credibilidad_' + tCredibilidad.desc" :value="tCredibilidad.desc"></input>
+                                        <input name="tipocredibilidad" type="radio" v-model="descuento" :id="'credibilidad_' + tCredibilidad.desc" :value="tCredibilidad.desc"></input>
                                         <label :for="'credibilidad_' + tCredibilidad.desc">{{tCredibilidad.tipo}}</label>
                                     </div>
                                 </template>
