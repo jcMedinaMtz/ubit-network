@@ -37,7 +37,7 @@ Vue.component( 'ubit-cotizador', {
         tipoImpacto: 0,
         costoHora: 60,
         cantidadDevs: 1,
-        meses: 3,
+        semanas: 12,
         precioCalculado: 0
     }
     },
@@ -45,7 +45,7 @@ Vue.component( 'ubit-cotizador', {
         precioPorHora: function () {
             var costo = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
             if ( !isNaN( costo ) ) {
-                return _.ceil( ( ( ( ( costo * 3 ) * 5 ) * 4 ) * this.cantidadDevs ) * this.meses );
+                return _.ceil( ( ( ( costo * 3 ) * 5 ) * this.cantidadDevs ) * this.semanas );
             } else {
                 return 0;
             }
@@ -116,13 +116,13 @@ Vue.component( 'ubit-cotizador', {
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>¿En cuánto tiempo esperas tener listo tu proyecto? (mínimo 3 meses)</h2>
+                                <h2>¿En cuánto tiempo esperas tener listo tu proyecto? (mínimo 12 semanas)</h2>
                             </div>
                             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-                                <input class="block" v-model="meses" type="range" min="3" max="12">
+                                <input class="block" v-model="semanas" type="range" min="12" max="52">
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <h3>{{meses}}</h3>
+                                <h3>{{semanas}} semanas</h3>
                             </div>
                         </div><div class="clear"></div>
                     </div>
