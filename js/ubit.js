@@ -38,29 +38,29 @@ Vue.component( 'ubit-cotizador', {
     },
     methods: {
         precioPorHora: function () {
-            console.log( this.tipoCliente , this.credibilidad , this.impacto , this.costoHora );
+            console.log( this.tipoCliente , 1.7 , this.impacto , this.costoHora );
             return ( this.tipoCliente * this.credibilidad * this.impacto * this.costoHora ) / this.competencia;
         },
     },
     template: `<section>
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="control-label">Tipo de cliente</label>
-                    <select v-model="this.tipoCliente">
-                        <option v-for="cliente in tiposCliente">{{cliente.tipo}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">credibilidad</label>
-                    <select v-model="this.credibilidad">
-                        <option v-for="credibilidad in tiposCredibilidad">{{credibilidad.tipo}}</option>
-                    </select>
-                </div>
+        <div class="row uniform 50%">
+            <div class="6u 12u$(xsmall)">
+                <select v-model="this.tipoCliente">
+                    <option value="">-Tipo de Cliente-</option>
+                    <option v-for="cliente in tiposCliente">{{cliente.tipo}}</option>
+                </select>
+            </div>
+            <div class="6u$ 12u$(xsmall)">
+                <select v-model="this.tiposImpacto">
+                <option value="">-Impacto del proyecto-</option>
+                    <option v-for="impacto in tiposImpacto">{{impacto.tipo}}</option>
+                </select>
+            </div>
+
+
+            <div class="form-horizontal hidden">
                 <div class="form-group">
                     <label class="control-label">impacto</label>
-                    <select v-model="this.tiposImpacto">
-                        <option v-for="impacto in tiposImpacto">{{impacto.tipo}}</option>
-                    </select>
                 </div>
                 <button @click="precioPorHora()" class="btn btn-success">Calcular</button>
             </div>
