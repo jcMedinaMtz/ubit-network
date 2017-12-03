@@ -47,7 +47,8 @@ Vue.component( 'ubit-cotizador', {
             var costo = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
             if ( !isNaN( costo ) ) {
                 var precio = _.ceil( ( ( ( costo * 3 ) * 5 ) * this.cantidadDevs ) * this.semanas );
-                return precio - ( precio * this.descuento);
+                var desc = _.ceil( precio * this.descuento );
+                return precio - desc;
             } else {
                 return 0;
             }
