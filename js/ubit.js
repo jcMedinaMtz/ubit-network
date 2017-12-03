@@ -8,11 +8,11 @@ Vue.component( 'ubit-cotizador', {
             { tipo: 'corporativo', value: 1.5 },
             { tipo: 'macroempresa', value: 2 },
         ], tiposCredibilidad: [
-            { tipo: 'No los conocia', value: 1, desc: .5 },
-            { tipo: 'Redes Sociales', value: 1.3, desc: .10 },
-            { tipo: 'Reuniones de Networking', value: 1.5, desc: .15 },
-            { tipo: 'Recomendación', value: 1.7, desc: 20 },
-            { tipo: 'Ya he trabajado con ustedes', value: 2, desc: .25 },
+            { tipo: 'No los conocia', value: 1, desc: 0.05 },
+            { tipo: 'Redes Sociales', value: 1.3, desc: 0.10 },
+            { tipo: 'Reuniones de Networking', value: 1.5, desc: 0.15 },
+            { tipo: 'Recomendación', value: 1.7, desc: 0.20 },
+            { tipo: 'Ya he trabajado con ustedes', value: 2, desc: 0.25 },
         ], tiposImpacto: [
             { tipo: 'nulo', value: 1 },
             { tipo: 'discreto', value:  1.2 },
