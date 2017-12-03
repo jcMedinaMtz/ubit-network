@@ -35,7 +35,7 @@ Vue.component( 'ubit-cotizador', {
         tipoCliente: 0,
         tipoCredibilidad: 1,
         tipoImpacto: 0,
-        costoHora: 60,
+        costoHora: 50,
         cantidadDevs: 1,
         semanas: 12,
         precioCalculado: 0,
@@ -46,12 +46,15 @@ Vue.component( 'ubit-cotizador', {
         precioPorHora: function () {
             var costo = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
             if ( !isNaN( costo ) ) {
+                var analisis_entregas = _.ceil( costo * ( this.semanas / 3 ) );
                 var precio = _.ceil( ( ( ( costo * 3 ) * 5 ) * this.cantidadDevs ) * this.semanas );
                 var desc = _.ceil( precio * this.descuento );
-                return precio - desc;
+                return precio - desc + analisis_entregas;
             } else {
                 return 0;
             }
+        },
+        análisis: function () {
         },
     },
     template:
