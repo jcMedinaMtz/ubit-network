@@ -85,24 +85,25 @@
 
                     </div>
 
+                </div>
             </div>
-        </div>
 
-        <!-- Footer -->
-        <footer id="footer">
-            <ul class="icons">
-                <li class="hidden"><a role="button" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                <li><a href="https://www.facebook.com/unbound.it/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="https://www.linkedin.com/in/jcmedinamartinez/" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                <li><a href="https://behance.net/jcmedina_ubit" class="icon fa-behance"><span class="label">Behance</span></a></li>
-                <li><a href="https://github.com/jcMedinaMtz" class="icon fa-github"><span class="label">GitHub</span></a></li>
-                <li><a href="https://about.me/jcmedinamartinez" class="icon fa-envelope"><span class="label">Email</span></a></li>
-            </ul>
-            <ul class="copyright">
-                <li>&copy; Unbound-IT. All rights reserved.</li>
-                <li>Design: <a href="https://www.facebook.com/jcmedinamartinez2">Juan Carlos Medina Mtz.</a></li>
-            </ul>
-        </footer>
+            <!-- Footer -->
+            <footer id="footer">
+                <ul class="icons">
+                    <li class="hidden"><a role="button" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="https://www.facebook.com/unbound.it/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/jcmedinamartinez/" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://behance.net/jcmedina_ubit" class="icon fa-behance"><span class="label">Behance</span></a></li>
+                    <li><a href="https://github.com/jcMedinaMtz" class="icon fa-github"><span class="label">GitHub</span></a></li>
+                    <li><a href="https://about.me/jcmedinamartinez" class="icon fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Unbound-IT. All rights reserved.</li>
+                    <li>Design: <a href="https://www.facebook.com/jcmedinamartinez2">Juan Carlos Medina Mtz.</a></li>
+                </ul>
+            </footer>
+        </div>
     </main>
 
     <script src="js/jquery.min.js"></script>
@@ -115,6 +116,97 @@
     <script src="js/vue.js"></script>
     <script src="js/ubit.js"></script>
     <script src="js/init.js"></script>
+    <script type="text/x-template" id="calculadora">
+        <section class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <h3>Tamaño de tu empresa</h3>
+                    <div class="clear"></div>
+                </div>
+                <div class="noPadding col-lg-6 col-md-6 col-sm-5 col-xs-9">
+                    <div class="block text-center h50">
+                        <div class="content-fluid contentMiddle" v-for="tCliente in tiposCliente">
+                            <input name="tipocliente" type="radio" v-model="tipoCliente" :id="'cliente_' + tCliente.value" :value="tCliente.value"></input>
+                            <label :for="'cliente_' + tCliente.value">{{tCliente.tipo}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p>
+                        {{descripcionCliente}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h3>Impacto del Proyecto</h3>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <template v-for="tImpacto in tiposImpacto">
+                                        <input name="tipoimpacto" type="radio" v-model="tipoImpacto" :id="'impacto_' + tImpacto.value" :value="tImpacto.value"></input>
+                                        <label :for="'impacto_' + tImpacto.value">{{tImpacto.tipo}}</label>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h3>¿Cómo nos conocímos?</h3>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <template v-for="tCredibilidad in tiposCredibilidad">
+                                        <input name="tipocredibilidad" type="radio" v-model="descuento" :id="'credibilidad_' + tCredibilidad.desc" :value="tCredibilidad.desc"></input>
+                                        <label :for="'credibilidad_' + tCredibilidad.desc">{{tCredibilidad.tipo}}</label>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h3>¿Cuántos programadores quieres en tu proyecto?</h3>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <input class="block" v-model="cantidadDevs" type="range" min="1" max="10">
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <h3>{{cantidadDevs}}</h3>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h3>¿En cuánto tiempo esperas tener listo tu proyecto? (mínimo 12 semanas)</h3>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                    <input class="block" v-model="semanas" type="range" min="12" max="52">
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <h3>{{semanas}} semanas</h3>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <h3>Describre brevemente tu proyecto:</h3>
+                    <textarea name="message" id="message" placeholder="..." rows="6"></textarea>
+                    <div class="clear"></div>
+                    <h3>Costo aproximado: <br>$ {{precioPorHora}}</h3>
+                </div>
+            </div>
+        </section>
+    </script>
 </body>
 
 </html>

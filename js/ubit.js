@@ -2,149 +2,88 @@ Vue.component( 'ubit-cotizador', {
     props: {},
     data: function () {
         return {
-        tiposCliente: [
-            { tipo: 'pequeño', value: 1 },
-            { tipo: 'mediano', value: 1.25 },
-            { tipo: 'corporativo', value: 1.5 },
-            { tipo: 'macroempresa', value: 2 },
-        ], tiposCredibilidad: [
-            { tipo: 'No los conocia', desc: 0.05 },
-            { tipo: 'Redes Sociales', desc: 0.10 },
-            { tipo: 'Reuniones de Networking', desc: 0.15 },
-            { tipo: 'Recomendación', desc: 0.20 },
-            { tipo: 'Ya he trabajado con ustedes', desc: 0.25 },
-        ], tiposImpacto: [
-            { tipo: 'nulo', value: 1 },
-            { tipo: 'discreto', value:  1.2 },
-            { tipo: 'medio', value: 1.3 },
-            { tipo: 'alto', value: 1.5 },
-            { tipo: 'mucho', value: 2 },
-        ], tiposCompetencia: [
-            { tipo: 'nadie', value: 1 },
-            { tipo: 'no muchos', value: 1.3 },
-            { tipo: 'algunos', value: 1.4 },
-            { tipo: 'varios', value: 1.7 },
-            { tipo: 'contactados', value: 2 },
-        ],tiposUrgencia: [
-            { tipo: 'nula', value: 1 },
-            { tipo: 'poca', value:  1.2 },
-            { tipo: 'medio', value: 1.3 },
-            { tipo: 'alto', value: 1.5 },
-            { tipo: 'mucho', value: 2 },
-        ],
-        tipoCliente: 0,
-        tipoCredibilidad: 1,
-        tipoImpacto: 0,
-        costoHora: 50,
-        cantidadDevs: 1,
-        semanas: 12,
-        precioCalculado: 0,
-        descuento: 0
-    }
+            tiposCliente: [
+                { tipo: 'pequeño', value: 1, info: 'Empresa pequeña, de pocos empleados, trabajadora. Vive y deja vivir.'
+                },
+                { tipo: 'mediano', value: 1.25, info: 'Empresa mediana a grande, buena solvencia económica, no tiene muchos empleados, no es líder de su industria.'
+                },
+                { tipo: 'corporativo', value: 1.5, info: 'Corporativo de mucha lana, tiene varias decenas de empleados, bonitas oficinas, es reconocido como uno de los líderes del mercado.'
+                },
+                { tipo: 'macroempresa', value: 2, info: 'Corporativo de muchísima lana, y además, el dueño se apellida Slim.'
+                },
+            ], tiposCredibilidad: [
+                { tipo: 'No los conocia', desc: 0.05 },
+                { tipo: 'Redes Sociales', desc: 0.10 },
+                { tipo: 'Reuniones de Networking', desc: 0.15 },
+                { tipo: 'Recomendación', desc: 0.20 },
+                { tipo: 'Ya he trabajado con ustedes', desc: 0.25 },
+            ], tiposImpacto: [
+                { tipo: 'nulo', value: 1 },
+                { tipo: 'discreto', value:  1.2 },
+                { tipo: 'medio', value: 1.3 },
+                { tipo: 'alto', value: 1.5 },
+                { tipo: 'mucho', value: 2 },
+            ], tiposCompetencia: [
+                { tipo: 'nadie', value: 1 },
+                { tipo: 'no muchos', value: 1.3 },
+                { tipo: 'algunos', value: 1.4 },
+                { tipo: 'varios', value: 1.7 },
+                { tipo: 'contactados', value: 2 },
+            ],tiposUrgencia: [
+                { tipo: 'nula', value: 1 },
+                { tipo: 'poca', value:  1.2 },
+                { tipo: 'medio', value: 1.3 },
+                { tipo: 'alto', value: 1.5 },
+                { tipo: 'mucho', value: 2 },
+            ],
+            tipoCliente: 0,
+            tipoCredibilidad: 1,
+            tipoImpacto: 0,
+            costoHora: 60,
+            cantidadDevs: 1,
+            semanas: 12,
+            descuento: 0,
+        }
     },
     computed: {
-        precioPorHora: function () {
-            var costo = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
-            if ( !isNaN( costo ) ) {
-                var analisis_entregas = _.ceil( costo * ( this.semanas / 3 ) );
-                var precio = _.ceil( ( ( ( costo * 3 ) * 5 ) * this.cantidadDevs ) * this.semanas );
-                var desc = _.ceil( precio * this.descuento );
-                return precio - desc + analisis_entregas;
-            } else {
-                return 0;
+        descripcionCliente: function () {
+            var tc = this.tipoCliente;
+            if ( this.tipoCliente !== undefined && this.tipoCliente > 0 ) {
+                var obj = _.find( this.tiposCliente, function ( o ) {
+                    return o.value == tc;
+                } );
+                return obj.info;
             }
         },
-        análisis: function () {
+        precioPorHora: function () {
+            var costoHra = ( this.tipoCliente * 1.7 * this.tipoImpacto * this.costoHora ) / 1.7;
+            var precioTiempo = this.costoSemanal( costoHra ) * this.semanas;
+            var precioGrupo = precioTiempo * this.cantidadDevs;
+            var subTotal = ( precioGrupo - this.descCalculado( precioGrupo ) ) + this.valorAnalisis( costoHra ) ;
+            var total = this.calcularUrgencia( subTotal );
+            return total;
         },
     },
-    template:
-        `<section class="container-fluid">
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>Tamaño de tu empresa</h2>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <template v-for="tCliente in tiposCliente">
-                                    <div>
-                                        <input name="tipocliente" type="radio" v-model="tipoCliente" :id="'cliente_' + tCliente.value" :value="tCliente.value"></input>
-                                        <label :for="'cliente_' + tCliente.value">{{tCliente.tipo}}</label>
-                                    </div>
-                                </template>
-                            </div>
-                        </div><div class="clear"></div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>Impacto del Proyecto</h2>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <template v-for="tImpacto in tiposImpacto">
-                                    <div>
-                                        <input name="tipoimpacto" type="radio" v-model="tipoImpacto" :id="'impacto_' + tImpacto.value" :value="tImpacto.value"></input>
-                                        <label :for="'impacto_' + tImpacto.value">{{tImpacto.tipo}}</label>
-                                    </div>
-                                </template>
-                            </div>
-                        </div><div class="clear"></div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>¿Cómo nos conocímos?</h2>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <template v-for="tCredibilidad in tiposCredibilidad">
-                                    <div>
-                                        <input name="tipocredibilidad" type="radio" v-model="descuento" :id="'credibilidad_' + tCredibilidad.desc" :value="tCredibilidad.desc"></input>
-                                        <label :for="'credibilidad_' + tCredibilidad.desc">{{tCredibilidad.tipo}}</label>
-                                    </div>
-                                </template>
-                            </div>
-                        </div><div class="clear"></div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>¿Cuántos programadores quieres en tu proyecto?</h2>
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-                                <input class="block" v-model="cantidadDevs" type="range" min="1" max="10">
-                            </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <h3>{{cantidadDevs}}</h3>
-                            </div>
-                        </div><div class="clear"></div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <h2>¿En cuánto tiempo esperas tener listo tu proyecto? (mínimo 12 semanas)</h2>
-                            </div>
-                            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-                                <input class="block" v-model="semanas" type="range" min="12" max="52">
-                            </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <h3>{{semanas}} semanas</h3>
-                            </div>
-                        </div><div class="clear"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <h2>Describre brevemente tu proyecto:</h2>
-                        <textarea name="message" id="message" placeholder="..." rows="6"></textarea>
-                    </div>
-                    <div class="col-xs-12">
-                    <div class="clear"></div>
-                        <h2>Costo aproximado: <br>$ {{precioPorHora}}</h2>
-                    </div>
-                </div>
-            </div>
-        </section>`
+    methods: {
+        calcularUrgencia: function( costo ) {
+            var x1 = 1;
+            var x2 = 1.5;
+            var y1 = 52;
+            var y2 = 1;
+            var m = ( y2 - x2 ) / ( y1 - x1 );
+            var b = x2 - ( m * x1 );
+            var y = ( m * this.semanas ) + b;
+            return costo * y;
+        },
+        costoSemanal: function ( costo ) {
+            return _.ceil( costo * 3 ) * 5;
+        },
+        valorAnalisis: function ( costo ) {
+            return _.ceil( costo * ( this.semanas / 3 ) );
+        },
+        descCalculado: function ( precio ) {
+            return _.ceil( precio * this.descuento )
+        },
+    },
+    template: `#calculadora`
 } );
