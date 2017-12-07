@@ -1573,6 +1573,7 @@ body.landing #header {
     height: 100vh;
     vertical-align: middle;
     width: 1%;
+    position: absolute;
 }
 #banner:after {
     background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.95), rgba(23, 24, 32, 0.95)), url("images/overlay.png");
@@ -1597,7 +1598,7 @@ body.landing #header {
     display: inline-block;
     margin-right: 1%;
     max-width: 95%;
-    padding: 6em;
+    /*padding: 6em;*/
     position: relative;
     text-align: right;
     vertical-align: middle;
@@ -1634,14 +1635,14 @@ body.is-touch #banner {
 /* Footer */
 
 #footer {
-    background: #DEDEDE;
+    background: #303045;
     padding: 6em 0;
     text-align: center;
 }
 #footer .icons .icon.alt {
     text-decoration: none;
 }
-#footer .icons .icon.alt:before {
+#footer .icons .icon:before {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: FontAwesome;
@@ -1649,12 +1650,12 @@ body.is-touch #banner {
     font-weight: normal;
     text-transform: none !important;
 }
-#footer .icons .icon.alt:before {
-    color: #272833 !important;
-    text-shadow: 1px 0 0 rgba(255, 255, 255, 0.5), -1px 0 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5), 0 -1px 0 rgba(255, 255, 255, 0.5);
+#footer .icons .icon:before {
+    color: #DEDEDE !important;
+    /*text-shadow: 1px 0 0 rgba(255, 255, 255, 0.5), -1px 0 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5), 0 -1px 0 rgba(255, 255, 255, 0.5);*/
 }
 #footer .copyright {
-    color: rgb(51, 51, 102);
+    color: #DEDEDE;
     font-size: 0.8em;
     line-height: 1em;
     margin: 2em 0 0 0;
@@ -1662,7 +1663,7 @@ body.is-touch #banner {
     text-align: center;
 }
 #footer .copyright li {
-    border-left: solid 1px rgb(51, 51, 102);
+    border-left: solid 1px #DEDEDE;
     display: inline-block;
     list-style: none;
     margin-left: 1.5em;
