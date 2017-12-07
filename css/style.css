@@ -1551,7 +1551,7 @@ body.landing #skel-layers-wrapper {
 body.landing #header {
     background: transparent;
     box-shadow: none;
-    position: fixed;
+    position: relative;
 }
 /* Banner */
 
@@ -1632,7 +1632,6 @@ body.landing #header {
 body.is-touch #banner {
     background-attachment: scroll;
 }
-
 #main {
     background-attachment: fixed;
     background-color: #272833;
