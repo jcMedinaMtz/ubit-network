@@ -118,11 +118,12 @@ Vue.component( 'ubit-cotizador', {
                 this.cotizacion.subTotal = this.cotizacion.costoTiempo;
                 this.cotizacion.costoAnalisis = this.valorAnalisis;
                 this.cotizacion.total = _.floor( this.cotizacion.subTotal + this.cotizacion.costoAnalisis );
-                return this.cotizacion.total.toLocaleString('es-MX')
+                return this.cotizacion.total;
             } else {
                 return 0;
             }
         },
     },
-    template: `#calculadora`
+    template: `#calculadora`,
+    delimiters: [ '${', '}' ]
 } );
