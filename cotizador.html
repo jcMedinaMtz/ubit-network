@@ -77,13 +77,81 @@
                 </header>
                 <div class="section-row row">
                     <div class="col-lg-12 col-xs-12">
-                        <!-- section-content -->
-                        <section id="section-content">
-                            <ubit-cotizador></ubit-cotizador>
+                        <section id="section-content" class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                    <h4 class="align-right text-bold">Tamaño de tu empresa</h4>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
+                                    <template v-for="tCliente in tiposCliente">
+                                            <input name="tipocliente" type="radio" v-model="tipoCliente" :id="'cliente_' + tCliente.value" :value="tCliente.value"></input>
+                                            <label class="pull-left" :for="'cliente_' + tCliente.value">${tCliente.tipo}</label>
+                                        </template>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                    <h4 class="align-right text-bold">Impacto del Proyecto</h4>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
+                                    <template v-for="tImpacto in tiposImpacto">
+                                            <input name="tipoimpacto" type="radio" v-model="tipoImpacto" :id="'impacto_' + tImpacto.value" :value="tImpacto.value"></input>
+                                            <label class="pull-left" :for="'impacto_' + tImpacto.value">${tImpacto.tipo}</label>
+                                        </template>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                    <h4 class="align-right text-bold">¿Cómo nos conocímos?</h4>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
+                                    <template v-for="tCredibilidad in tiposCredibilidad">
+                                            <input name="tipocredibilidad" type="radio" v-model="tipoCredibilidad" :id="'credibilidad_' + tCredibilidad.desc" :value="tCredibilidad.value"></input>
+                                            <label class="pull-left" :for="'credibilidad_' + tCredibilidad.desc">${tCredibilidad.tipo}</label>
+                                        </template>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                    <h4 class="align-right text-bold">¿Cuántos programadores quieres en tu proyecto?</h4>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-7 col-xs-10">
+                                    <input class="block" v-model="cantidadDevs" type="range" min="1" max="10">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <h4 class="text-left">${cantidadDevs}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                    <h4 class="align-right text-bold">¿En cuánto tiempo esperas tener listo tu proyecto?</h4>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-7 col-xs-10">
+                                    <input class="block" v-model="semanas" type="range" min="12" max="52">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <h4 class="text-left">${semanas} semanas</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
+                                    <h4 class="align-right text-bold">Describre brevemente tu proyecto:</h4>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
+                                    <textarea name="message" id="message" placeholder="..." rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <h3>Costo aproximado: <br>$ ${ presupuesto.toLocaleString('es-MX') }</h3>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
                         </section>
-
                     </div>
-
                 </div>
             </div>
 
@@ -115,82 +183,6 @@
     <script src="js/vue.js"></script>
     <script src="js/ubit.js"></script>
     <script src="js/init.js"></script>
-    <script type="text/x-template" id="calculadora">
-        <section class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="text-right">Tamaño de tu empresa</h4>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <template v-for="tCliente in tiposCliente">
-                        <input name="tipocliente" type="radio" v-model="tipoCliente" :id="'cliente_' + tCliente.value" :value="tCliente.value"></input>
-                        <label class="pull-left" :for="'cliente_' + tCliente.value">${tCliente.tipo}</label>
-                    </template>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="text-right">Impacto del Proyecto</h4>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <template v-for="tImpacto in tiposImpacto">
-                        <input name="tipoimpacto" type="radio" v-model="tipoImpacto" :id="'impacto_' + tImpacto.value" :value="tImpacto.value"></input>
-                        <label class="pull-left" :for="'impacto_' + tImpacto.value">${tImpacto.tipo}</label>
-                    </template>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="text-right">¿Cómo nos conocímos?</h4>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <template v-for="tCredibilidad in tiposCredibilidad">
-                        <input name="tipocredibilidad" type="radio" v-model="tipoCredibilidad" :id="'credibilidad_' + tCredibilidad.desc" :value="tCredibilidad.value"></input>
-                        <label class="pull-left" :for="'credibilidad_' + tCredibilidad.desc">${tCredibilidad.tipo}</label>
-                    </template>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="text-right">¿Cuántos programadores quieres en tu proyecto?</h4>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
-                    <input class="block" v-model="cantidadDevs" type="range" min="1" max="10">
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <h4 class="text-left">${cantidadDevs}</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="text-right">¿En cuánto tiempo esperas tener listo tu proyecto?</h4>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <input class="block" v-model="semanas" type="range" min="12" max="52">
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                    <h4 class="text-left">${semanas} semanas</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="text-right">Describre brevemente tu proyecto:</h4>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <textarea name="message" id="message" placeholder="..." rows="4"></textarea>
-                </div>
-            </div>
-            <div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <h3>Costo aproximado: <br>$ ${ presupuesto.toLocaleString('es-MX') }</h3>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </section>
-    </script>
 </body>
 
 </html>

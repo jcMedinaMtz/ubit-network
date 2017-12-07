@@ -1,5 +1,5 @@
-Vue.component( 'ubit-cotizador', {
-    props: {},
+new Vue({
+    el: '#cotizador',
     data: function () {
         return {
             tiposCliente: [
@@ -124,6 +124,5 @@ Vue.component( 'ubit-cotizador', {
             }
         },
     },
-    template: `#calculadora`,
     delimiters: [ '${', '}' ]
 } );

@@ -48,11 +48,6 @@
     } );
 
     $( function () {
-
-        new Vue({
-            el: '#cotizador'
-        })
-
         var $window = $( window ),
             $body = $( 'body' );
 
