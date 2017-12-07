@@ -126,9 +126,9 @@ body{display:block;margin:0;font-family:'Open Sans',sans-serif!important;}
 .trDarkBlue{background-color:rgba(48,78,104,0.75)!important}
 .bgGrenBtnClear{background-color:rgba(107,202,151,0.85)}*/
 /*baseColor*/
-.bg-uiColor-dark { background-color: #131c20!important; }
-.bg-uiColor-base { background-color: hsla(570, 65%, 35%, 1)!important }
-.bg-uiColor-clear { background-color: hsla(210, 45%, 45%, 1)!important }
+.bg-uiColor-dark { background-color: #1d1c3f!important }
+.bg-uiColor-base { background-color: #333366!important }
+.bg-uiColor-light { background-color: #d4d2d3!important }
 
 /*.bg-uiColor-dark { background-color: #262b40!important; }
 .bg-uiColor-base { background-color: #394166!important; }

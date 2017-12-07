@@ -52,28 +52,31 @@ Vue.component( 'ubit-cotizador', {
             }
         },
         descripcionImpacto: function () {
-            var tc = this.tipoImpacto;
+            var ti = this.tipoImpacto;
             if ( this.tipoImpacto !== undefined && this.tipoImpacto > 0 ) {
                 var obj = _.find( this.tiposImpacto, function ( o ) {
-                    return o.value == tc;
+                    return o.value == ti;
                 } );
                 return obj.info;
             }
         },
         descripcionCredibilidad: function () {
-            var tc = this.tipoCredibilidad;
+            var cred = this.tipoCredibilidad;
             if ( this.tipoCredibilidad !== undefined && this.tipoCredibilidad > 0 ) {
                 var obj = _.find( this.tiposCredibilidad, function ( o ) {
-                    return o.value == tc;
+                    return o.value == cred;
                 } );
                 return obj.info;
             }
+        },
+        valDescuento: function() {
+            console.log( this.tipoCredibilidad );
         },
         precioPorHora: function () {
             var costoHra = ( this.tipoCliente * this.tipoCredibilidad * this.tipoImpacto * this.costoHora ) / 1.7;
             var precioTiempo = this.costoSemanal( costoHra ) * this.semanas;
             var precioGrupo = precioTiempo * this.cantidadDevs;
-            var subTotal = ( precioGrupo - this.descCalculado( precioGrupo ) ) + this.valorAnalisis( costoHra ) ;
+            var subTotal = ( precioGrupo - this.descCalculado( precioGrupo, this.valDescuento ) ) + this.valorAnalisis( costoHra ) ;
             var total = this.calcularUrgencia( subTotal );
             return total;
         },
@@ -95,12 +98,8 @@ Vue.component( 'ubit-cotizador', {
         valorAnalisis: function ( costo ) {
             return _.ceil( costo * ( this.semanas / 3 ) );
         },
-        descCalculado: function ( precio ) {
-            var obj = _.find( this.tiposCredibilidad, function ( o ) {
-                return o.value == this.tiposCredibilidad;
-                console.log( o );
-            } );
-            return _.ceil( precio * obj.desc )
+        descCalculado: function ( precio, factorDescuento ) {
+            return _.ceil( precio * factorDescuento )
         },
     },
     template: `#calculadora`

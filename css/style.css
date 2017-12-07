@@ -603,7 +603,7 @@ header.major {
     text-align: center;
 }
 header.major:after {
-    background: #333366;
+    background: #dedede;
     content: '';
     display: inline-block;
     height: 0.2em;
