@@ -274,7 +274,7 @@ hr {
 }
 /* Services Section */
 #services {
-	background: url(../img/services-bg.jpg);
+	/* background: url(../img/services-bg.jpg); */
 	background-size: cover;
 	background-attachment: fixed;
 	position: relative;
@@ -283,22 +283,22 @@ hr {
 	padding: 20px 10px;
 }
 #services h2 {
-	color: #f6f6f6;
+	/* color: #f6f6f6; */
 }
 #services h3 {
 	font-size: 20px;
 	font-weight: 600;
-	color: #f6f6f6;
+	/* color: #f6f6f6; */
 }
 #services p {
-	color: rgba(255,255,255,0.7);
+	/* color: rgba(255,255,255,0.7); */
 }
 .space {
 	margin-top: 40px;
 }
 #services i.fa {
 	font-size: 36px;
-	color: #5F4B8B;
+	color: #5f4b8b;
 	transition: all 0.5s;
 }
 /* Gallery Section */
