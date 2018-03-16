@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            ¡Reistrarte!
+        </title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="registry">
+            <!-- Forma sencilla, nada fuera de lo normal -->
+            <form action="../php/register.php" method="POST">
+                <!-- Nombre de usuario -->
+                <input type="text" name="name" placeholder="Nombre de usuario"/>
+
+                <!-- Correo electrónico -->
+                <input type="email" name="email" placeholder="Correo electrónico"/>
+
+                <!-- Seleccionar si será parte de UBITNetwork -->
+                <label for="is-network">
+                    Formar parte de UnboundIT Network
+                </label>
+                <input id="is-network" type="checkbox" v-model="network" name="is_network" />
+
+                <!-- Intereses (Si es o no Ubit Network) -->
+                <textarea name="interests" title="Escriba, separado por coma, una lista de intereses que desearía ver en un curso en el futuro">
+                </textarea>
+
+                <!-- Habilidades (Si es Ubit Network) -->
+                <textarea v-if="network" name="skills" title="Escriba de la misma manera, separado por comas, una lista de habilidades de programación con las que cuenta actualmente">
+                </textarea>
+
+                <!-- Enviar formulario -->
+                <button type="submit">
+                    Registrarse
+                </button>
+            </form>
+        </div>
+        <script src="../js/registry.js"
+    </body>
+</html>
