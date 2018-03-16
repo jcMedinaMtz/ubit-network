@@ -5,8 +5,6 @@
     $DB = new PDO(
         'mysql:host=localhost;dbname=unboundit', $user, $pass) or die 
         ('Imposible conectar con la base de datos');
-        
-    $DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Registrar al usuario y verificar que todo salga bien
     try {
