@@ -585,10 +585,15 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 }
 /* Footer Section*/
 #footer {
-	background: #19162f;
+	background: #000000;
+	/*background: #19162f;*/
 	color: #777;
 	padding: 20px 0;
 	text-align: center;
+	height: auto;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 #footer a {
 	color: #999999;
